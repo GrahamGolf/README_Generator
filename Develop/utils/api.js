@@ -2,11 +2,18 @@ const axios = require("axios");
 
 const api = { 
   getUser(username) {
-    axios.get(`https://api.github.com/users/${username}`)
+    const token = process.env.GITHUB_TOKEN
+    return axios({
+      method: "get",
+      url: `https://api.github.com/users/${username}`,
+      headers: {
+      authorization: `token ${token}`  
+    }})
     .then(response => {
-      console.log(response);
+      return response
     })
   }
 };
 
 module.exports = api;
+
